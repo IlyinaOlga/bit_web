@@ -37,13 +37,19 @@ export const typography = {
   font_weight: {
     medium: 500,
   },
-  body_text_regular: createTypography({
+  body_small: createTypography({
+    fontMin: 13,
+    fontMax: 13,
+    lineHeight: 1.23,
+    fontWeight: 400,
+  }),
+  body_regular: createTypography({
     fontMin: 16,
     fontMax: 16,
     lineHeight: 1.5,
     fontWeight: 400,
   }),
-  body_text_medium: createTypography({
+  body_medium: createTypography({
     fontMin: 16,
     fontMax: 16,
     lineHeight: 1.5,

@@ -18,13 +18,9 @@ export const Group = styled.div`
 
 export const LogoutBtn = styled.div`
   color: ${palette.colors.primary};
-  ${typography.body_text_medium}
+  ${typography.body_medium}
   display: flex;
   gap: 8px;
   align-items: center;
 `;
 
-export const BetweenContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
