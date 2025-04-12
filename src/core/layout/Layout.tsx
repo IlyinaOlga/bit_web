@@ -1,14 +1,14 @@
 import { FC, PropsWithChildren } from 'react';
-// import './Layout.css';
 import { Footer, Header } from '../../components';
+import { LayoutContainer } from './Layout.styled';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div>
+    <LayoutContainer>
       <Header />
       {children}
       <Footer />
-    </div>
+    </LayoutContainer>
   );
 };
 

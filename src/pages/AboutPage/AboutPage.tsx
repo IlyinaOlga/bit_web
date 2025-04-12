@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 const AboutPage: FC<any> = () => {
   return <div>about page</div>;

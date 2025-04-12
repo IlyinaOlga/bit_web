@@ -1,4 +1,4 @@
-import { BrowserRouter, Outlet } from 'react-router';
+import { Outlet } from 'react-router';
 import './App.css';
 import { Router } from './core/router';
 import { Layout } from './core/layout';
