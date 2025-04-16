@@ -1,14 +1,28 @@
-import React from 'react';
+import { useState, FC } from 'react';
 import {
   Group,
+  GroupGap12,
   HeaderContainer,
   HeaderTitle,
+  LoginBtn,
   LogoutBtn,
+  RegistrationBtn,
 } from './Header.styled';
 import { BetweenContainer, StyledLink } from '../../core/styles';
-import { ReactComponent as LououtIcon } from '../../icons/logout_icon.svg';
+import { ReactComponent as LogoutIcon } from '../../icons/logout_icon.svg';
+import { ReactComponent as LoginIcon } from '../../icons/account_circle.svg';
+import { LoginPage } from '../../pages/LoginPage';
 
-const Header: React.FC<any> = () => {
+const Header: FC = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <HeaderContainer>
       <BetweenContainer>
@@ -19,14 +33,22 @@ const Header: React.FC<any> = () => {
           <StyledLink to="/about">О кафедре</StyledLink>
         </Group>
 
-        <Group>
+        <GroupGap12>
+          <LoginBtn variant="outlined" onClick={handleClickOpen}>
+            <LoginIcon />
+            Войти
+          </LoginBtn>
+          <RegistrationBtn>Зарегистрироваться</RegistrationBtn>
+        </GroupGap12>
+        {/* <Group>
           <StyledLink to="/login">
             <LogoutBtn>
-              <LououtIcon />
+              <LogoutIcon />
               Выйти
             </LogoutBtn>
           </StyledLink>
-        </Group>
+        </Group> */}
+        {open && <LoginPage open={open} onClose={handleClose} />}
       </BetweenContainer>
     </HeaderContainer>
   );
