@@ -12,17 +12,25 @@ import { BetweenContainer, StyledLink } from '../../core/styles';
 import { ReactComponent as LogoutIcon } from '../../icons/logout_icon.svg';
 import { ReactComponent as LoginIcon } from '../../icons/account_circle.svg';
 import { LoginPage } from '../../pages/LoginPage';
+import { RegistrationPage } from '../../pages/RegistrationPage';
 
 const Header: FC = () => {
-  const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState<'login' | 'registration' | null>(
+    null
+  );
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleOpenLogin = () => {
+    setOpenModal('login');
+  };
+
+  const handleOpenRegistration = () => {
+    setOpenModal('registration');
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenModal(null);
   };
+
   return (
     <HeaderContainer>
       <BetweenContainer>
@@ -34,11 +42,13 @@ const Header: FC = () => {
         </Group>
 
         <GroupGap12>
-          <LoginBtn variant="outlined" onClick={handleClickOpen}>
+          <LoginBtn variant="outlined" onClick={handleOpenLogin}>
             <LoginIcon />
             Войти
           </LoginBtn>
-          <RegistrationBtn>Зарегистрироваться</RegistrationBtn>
+          <RegistrationBtn onClick={handleOpenRegistration}>
+            Зарегистрироваться
+          </RegistrationBtn>
         </GroupGap12>
         {/* <Group>
           <StyledLink to="/login">
@@ -48,7 +58,12 @@ const Header: FC = () => {
             </LogoutBtn>
           </StyledLink>
         </Group> */}
-        {open && <LoginPage open={open} onClose={handleClose} />}
+        {openModal === 'login' && (
+          <LoginPage open={true} onClose={handleClose} />
+        )}
+        {openModal === 'registration' && (
+          <RegistrationPage open={true} onClose={handleClose} />
+        )}
       </BetweenContainer>
     </HeaderContainer>
   );

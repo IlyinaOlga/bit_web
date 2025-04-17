@@ -1,14 +1,18 @@
 import { DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { FC, FormEvent } from 'react';
-import { FieldGroup, LoginCol, StyledDialog } from './LoginPage.styled';
+import {
+  FieldGroup,
+  LoginCol,
+  StyledDialog,
+} from '../LoginPage/LoginPage.styled';
 import { ContainedButton, Field, TextButton } from '../../core/styles';
 
-interface LoginProps {
+interface RegistrationProps {
   open: boolean;
   onClose: () => void;
 }
 
-const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
+const RegistrationPage: FC<RegistrationProps> = ({ open, onClose }) => {
   return (
     <StyledDialog
       open={open}
@@ -24,7 +28,7 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
       }}
     >
       <LoginCol>
-        <DialogTitle>Вход</DialogTitle>
+        <DialogTitle>Регистрация</DialogTitle>
         <DialogContent>
           <FieldGroup>
             <Field
@@ -60,4 +64,4 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
   );
 };
 
-export default LoginPage;
+export default RegistrationPage;

@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle } from "@mui/material";
+import { Dialog } from "@mui/material";
 import styled from "styled-components";
 import { Col } from "../../core/styles";
 
