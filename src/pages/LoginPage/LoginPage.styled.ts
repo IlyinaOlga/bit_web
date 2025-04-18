@@ -28,10 +28,6 @@ export const StyledDialog = styled(Dialog)`
   }
 `;
 
-export const LoginCol = styled(Col)`
-  gap: 24px;
-`;
-
 export const FieldGroup = styled.div`
   display: flex;
   flex-direction: column;

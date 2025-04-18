@@ -1,21 +1,20 @@
 import { DialogTitle, DialogActions } from '@mui/material';
-import { FC, FormEvent } from 'react';
+import { FC } from 'react';
+import { FieldGroup, StyledDialog } from '../LoginPage/LoginPage.styled';
 import {
-  FieldGroup,
-  LoginCol,
-  StyledDialog,
-} from '../LoginPage/LoginPage.styled';
-import { ContainedButton, FilledField, TextButton } from '../../core/styles';
+  ContainedButton,
+  FilledField,
+  FormCol,
+  TextButton,
+} from '../../core/styles';
 import { Controller, useForm } from 'react-hook-form';
-import { RegistrationFormValues } from './RegistrationPage.types';
+import {
+  RegistrationFormValues,
+  RegistrationProps,
+} from './RegistrationPage.types';
 import { registrationSchema } from '../../core/scheme';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { StyledDialogContent } from './RegistrationPage.styled';
-
-interface RegistrationProps {
-  open: boolean;
-  onClose: () => void;
-}
 
 const RegistrationPage: FC<RegistrationProps> = ({ open, onClose }) => {
   const {
@@ -38,7 +37,7 @@ const RegistrationPage: FC<RegistrationProps> = ({ open, onClose }) => {
   return (
     <StyledDialog open={open} onClose={onClose}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <LoginCol>
+        <FormCol>
           <DialogTitle>Регистрация</DialogTitle>
           <StyledDialogContent>
             <FieldGroup>
@@ -90,7 +89,7 @@ const RegistrationPage: FC<RegistrationProps> = ({ open, onClose }) => {
               Зарегистрироваться
             </ContainedButton>
           </DialogActions>
-        </LoginCol>
+        </FormCol>
       </form>
     </StyledDialog>
   );

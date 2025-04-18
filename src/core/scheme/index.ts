@@ -9,8 +9,8 @@ import {
 } from "./scheme-components";
 
 export const authSchema = Joi.object({
-  // login: loginSchema(),
-  // password: passwordSchema(),
+  email: emailSchema(),
+  password: passwordSchema(),
 });
 
 export const registrationSchema = Joi.object({

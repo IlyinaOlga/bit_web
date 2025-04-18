@@ -141,3 +141,7 @@ export const FilledField = styled(TextField)`
     color: ${palette.colors.grey};
   }
 `;
+
+export const FormCol = styled(Col)`
+  gap: 24px;
+`;
