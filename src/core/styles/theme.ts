@@ -7,7 +7,9 @@ export const palette = {
     grey_dark: '#444654',
 
     primary: "#0E2FBF",
-    default: "#1A1B23"
+    default: "#1A1B23",
+
+    error: "#BA1A1A"
 
   },
 

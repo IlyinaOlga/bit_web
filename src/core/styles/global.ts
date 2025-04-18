@@ -59,6 +59,10 @@ export const Field = styled(TextField)`
   .MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before {
     border: none;
   }
+
+  &.MuiFormHelperText-root {
+    color: ${palette.colors.error};
+  }
 `;
 
 export const TextButton = styled(Button)`
@@ -77,5 +81,63 @@ export const ContainedButton = styled(Button)`
     ${typography.body_regular};
     text-transform: capitalize;
     min-width: 96px;
+  }
+`;
+
+export const FilledField = styled(TextField)`
+  & .MuiFilledInput-root {
+    border-radius: 8px;
+  }
+
+  & .MuiFilledInput-input {
+    padding: 16px 12px 8px 12px;
+    background-color: #F4F2FE;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Golos Text';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  & .MuiFilledInput-input::placeholder {
+    color: ${palette.colors.grey_dark};
+    opacity: 1;
+  }
+
+  & .MuiInputBase-root {
+    margin: 0;
+  }
+
+  & .MuiFormControl-root {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  & .MuiFilledInput-root::after,
+  .MuiFilledInput-root::before,
+  .MuiFilledInput-root:hover:not(.Mui-disabled, .Mui-error):before {
+    border: none;
+  }
+
+  & .MuiInputLabel-root {
+    top: -4px;
+    ${typography.body_regular};
+    color: ${palette.colors.grey};
+    font-family: 'Golos Text';
+  }
+
+  & .MuiInputLabel-root.Mui-focused {
+    color: ${palette.colors.grey};
+  }
+
+  & .MuiFormHelperText-root {
+    color: ${palette.colors.error};
+    margin-top: 0;
+  }
+
+  & .MuiInputLabel-root.Mui-error {
+    color: ${palette.colors.grey};
   }
 `;

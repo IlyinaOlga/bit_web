@@ -11,8 +11,7 @@ import {
 import { BetweenContainer, StyledLink } from '../../core/styles';
 import { ReactComponent as LogoutIcon } from '../../icons/logout_icon.svg';
 import { ReactComponent as LoginIcon } from '../../icons/account_circle.svg';
-import { LoginPage } from '../../pages/LoginPage';
-import { RegistrationPage } from '../../pages/RegistrationPage';
+import { LoginPage, RegistrationPage } from '../../pages';
 
 const Header: FC = () => {
   const [openModal, setOpenModal] = useState<'login' | 'registration' | null>(
