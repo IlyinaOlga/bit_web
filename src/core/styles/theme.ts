@@ -6,11 +6,14 @@ export const palette = {
     grey_light: "#C5C5D7",
     grey_dark: '#444654',
 
+    hover: '#eff3f6',
+
     primary: "#0E2FBF",
     default: "#1A1B23",
 
-    error: "#BA1A1A"
+    error: "#BA1A1A",
 
+    lilac: '#D7D4FF',
   },
 
 };

@@ -1,13 +1,17 @@
 import { DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { FieldGroup, StyledDialog } from './LoginPage.styled';
 import { ContainedButton, Field, TextButton, FormCol } from '../../core/styles';
 import { Controller, useForm } from 'react-hook-form';
 import { LoginFormValues, LoginProps } from './LoginPage.types';
 import { authSchema } from '../../core/scheme';
 import { joiResolver } from '@hookform/resolvers/joi';
+import { Store } from '../../core/store';
+import { setNameValue } from '../../core/store/authorize';
+import { setLocalStorage } from '../../core/utils';
 
 const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
+  const { dispatch } = useContext(Store);
   const {
     handleSubmit,
     control,
@@ -23,6 +27,10 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
   const onSubmit = (data: any) => {
     // mutate(data);
     console.log(data);
+
+    dispatch(setNameValue('Сергей И.'));
+    setLocalStorage('user', 'Сергей И.');
+
     onClose();
   };
   return (
@@ -34,12 +42,12 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
             <FieldGroup>
               <Controller
                 control={control}
-                name="email"
+                name='email'
                 render={({ field: { value, onBlur, onChange } }) => (
                   <Field
                     onBlur={onBlur}
-                    variant="standard"
-                    placeholder="Ваша эл. почта"
+                    variant='standard'
+                    placeholder='Ваша эл. почта'
                     focused={value ? true : false}
                     value={value}
                     error={!!errors?.email?.message}
@@ -51,13 +59,13 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
 
               <Controller
                 control={control}
-                name="password"
+                name='password'
                 render={({ field: { value, onBlur, onChange } }) => (
                   <Field
                     onBlur={onBlur}
-                    variant="standard"
-                    placeholder="Пароль"
-                    type="password"
+                    variant='standard'
+                    placeholder='Пароль'
+                    type='password'
                     focused={value ? true : false}
                     value={value}
                     error={!!errors?.password?.message}
@@ -71,8 +79,8 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
           <DialogActions>
             <TextButton onClick={onClose}>Отменить</TextButton>
             <ContainedButton
-              type="submit"
-              variant="contained"
+              type='submit'
+              variant='contained'
               disabled={!isValid}
             >
               Войти

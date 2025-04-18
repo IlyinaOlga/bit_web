@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { palette, typography } from "../../core/styles";
-import { Button } from "@mui/material";
+import { Button, colors } from "@mui/material";
+import { $ } from "react-router/dist/development/fog-of-war-oa9CGk10";
 
 export const HeaderContainer = styled.h1`
   padding: 16px 24px;
@@ -22,11 +23,22 @@ export const GroupGap12 = styled(Group)`
 `;
 
 export const LogoutBtn = styled.div`
+  padding: 10px 12px;
   color: ${palette.colors.primary};
   ${typography.body_medium}
   display: flex;
   gap: 8px;
   align-items: center;
+  cursor: pointer;
+  border-radius: 999px;
+
+  &:hover {
+    color: ${palette.colors.default};
+  }
+
+  &:hover path {
+    fill: ${palette.colors.default};
+  }
 `;
 
 export const LoginBtn = styled(Button)`
@@ -58,4 +70,27 @@ export const RegistrationBtn = styled(Button)`
   &.MuiButton-root:hover {
     background-color: #213fc4;
   }
+`;
+
+export const GroupGap8 = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+`;
+
+export const User = styled.div`
+  color: ${palette.colors.grey};
+  ${typography.body_regular}`;
+;
+
+export const ArticleBtn = styled.div`
+  ${typography.body_regular};
+  padding: 8px 12px;
+  border-radius: 999px;
+  background-color: ${palette.colors.lilac};
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-right: 24px;
 `;
