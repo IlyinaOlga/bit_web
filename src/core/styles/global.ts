@@ -70,7 +70,10 @@ export const TextButton = styled(Button)`
     color: ${palette.colors.primary};
     text-transform: capitalize;
     ${typography.body_regular};
+    padding: 10px 12px;
+    border-radius: 999px;
   }
+  /* & .MuiButton-root */
 `;
 
 export const ContainedButton = styled(Button)`
@@ -81,6 +84,9 @@ export const ContainedButton = styled(Button)`
     ${typography.body_regular};
     text-transform: capitalize;
     min-width: 96px;
+  }
+  &.MuiButton-root:hover {
+    background-color: #213fc4;
   }
 `;
 

@@ -54,4 +54,8 @@ export const RegistrationBtn = styled(Button)`
     text-transform: capitalize;
     ${typography.body_regular};
   }
+
+  &.MuiButton-root:hover {
+    background-color: #213fc4;
+  }
 `;
