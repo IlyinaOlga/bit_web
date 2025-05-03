@@ -1,13 +1,14 @@
-import type { FC } from 'react';
-import { Routes, Route } from 'react-router';
-import { AboutPage, ArticlePage, HomePage } from '../../pages';
+import type { FC } from "react";
+import { Routes, Route } from "react-router";
+import { AboutPage, ArticlePage, ConferencePage, HomePage } from "../../pages";
 
 export const Router: FC = () => {
   return (
     <Routes>
-      <Route path='/' element={<HomePage />} />
-      <Route path='/about' element={<AboutPage />} />
-      <Route path='/article' element={<ArticlePage />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/article" element={<ArticlePage />} />
+      <Route path="/conference/:id" element={<ConferencePage />} />
       {/* <Route
         path={`${APP_ROUTES.DASHBOASD}`}
         element={

@@ -6,6 +6,7 @@ import {
   StyledCard,
   StyledChip,
 } from "./ConferenceCard.styled";
+import { NavLink } from "react-router";
 
 const ConferenceCard: FC<IConferenceCard> = ({ id, title, details }) => {
   return (
@@ -14,9 +15,11 @@ const ConferenceCard: FC<IConferenceCard> = ({ id, title, details }) => {
         label={`${details.country}, ${details.city}, ${details.period}`}
       />
       <ConferenceTitle>{title}</ConferenceTitle>
-      <ConferenceCardButton variant="contained">
-        Узнать подробности
-      </ConferenceCardButton>
+      <NavLink to={`/conference/${id}`}>
+        <ConferenceCardButton variant="contained">
+          Узнать подробности
+        </ConferenceCardButton>
+      </NavLink>
     </StyledCard>
   );
 };
