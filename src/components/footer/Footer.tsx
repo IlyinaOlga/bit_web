@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC } from "react";
 import {
   ContactList,
   ContainerInner,
@@ -8,21 +8,16 @@ import {
   FooterTitle,
   Group,
   ImageGroup,
-} from './Footer.styled';
-import {
-  BetweenContainer,
-  Col,
-  Container,
-  StyledLink,
-} from '../../core/styles';
-import SfeduLogo from '../../images/sfedu_logo.png';
-import IktibLogo from '../../images/iktib_logo.png';
+} from "./Footer.styled";
+import { BetweenContainer, Col, StyledLink } from "../../core/styles";
+import SfeduLogo from "../../images/sfedu_logo.png";
+import IktibLogo from "../../images/iktib_logo.png";
 
 const Footer: FC = () => {
   return (
     <FooterContainer>
-      <Container>
-        <ContainerInner>
+      <ContainerInner>
+        <div>
           <BetweenContainer>
             <Col>
               <FooterTitle>Контантная информация</FooterTitle>
@@ -40,22 +35,24 @@ const Footer: FC = () => {
               </ImageGroup>
             </Col>
           </BetweenContainer>
-        </ContainerInner>
+        </div>
 
-        <BetweenContainer>
-          <Group>
-            <StyledLink to="/">
-              Cогласие на обработку персональных данных
-            </StyledLink>
-            <Divider />
-            <StyledLink to="/">Политика конфиденциальности</StyledLink>
-          </Group>
-          <Copyright>
-            &copy; 2015-2025, Институт компьютерных технологий и информационной
-            безопасности ИТА ЮФУ
-          </Copyright>
-        </BetweenContainer>
-      </Container>
+        <div>
+          <BetweenContainer>
+            <Group>
+              <StyledLink to="/">
+                Cогласие на обработку персональных данных
+              </StyledLink>
+              <Divider />
+              <StyledLink to="/">Политика конфиденциальности</StyledLink>
+            </Group>
+            <Copyright>
+              &copy; 2015-2025, Институт компьютерных технологий и
+              информационной безопасности ИТА ЮФУ
+            </Copyright>
+          </BetweenContainer>
+        </div>
+      </ContainerInner>
     </FooterContainer>
   );
 };

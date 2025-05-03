@@ -6,7 +6,8 @@ export const StyledCard = styled(Card)`
   &.MuiCard-root {
     border-radius: 16px;
     box-shadow: none;
-    background: #F4F2FE;
+    background: ${palette.colors.surface_light};
+    cursor: pointer;
   }
 `;
 

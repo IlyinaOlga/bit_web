@@ -14,12 +14,9 @@ export const Container = styled.div`
   width: 100%;
   max-width: 1480px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 64px 16px 128px 16px;
 `;
 
-export const Section = styled.section`
-  margin-top: 64px;
-`;
 
 export const BetweenContainer = styled.div`
   display: flex;
@@ -77,7 +74,6 @@ export const TextButton = styled(Button)`
     padding: 10px 12px;
     border-radius: 999px;
   }
-  /* & .MuiButton-root */
 `;
 
 export const ContainedButton = styled(Button)`
@@ -169,4 +165,10 @@ export const FilledField = styled(TextField)`
 
 export const FormCol = styled(Col)`
   gap: 24px;
+`;
+
+export const ColumnGap64 = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
 `;

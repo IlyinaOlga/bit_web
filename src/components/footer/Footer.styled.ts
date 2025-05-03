@@ -1,13 +1,17 @@
 import styled from "styled-components";
-import { palette, typography } from "../../core/styles";
+import { Container, palette, typography } from "../../core/styles";
 
 export const FooterContainer = styled.div`
-  padding: 32px 0;
+  padding: 32px 16px;
   border-top: 1px solid ${palette.colors.grey_light};
 `;
 
-export const ContainerInner = styled.div`
-  margin-bottom: 32px;
+export const ContainerInner= styled(Container)`
+  padding-top: 0;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 `;
 
 export const FooterTitle = styled.div`

@@ -5,6 +5,8 @@ export const palette = {
     grey: "#757686",
     grey_light: "#C5C5D7",
     grey_dark: '#444654',
+    surface: '#D7D4FF',
+    surface_light: '#F4F2FE',
 
     hover: '#eff3f6',
 
