@@ -3,7 +3,6 @@ import {
   BetweenContainer,
   ColumnGap64,
   Container,
-  OutlinedButton,
   Title,
 } from "../../core/styles";
 import { CardGroup, ConferenceGroup } from "./HomePage.styled";
