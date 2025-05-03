@@ -17,6 +17,10 @@ export const Container = styled.div`
   padding: 0 16px;
 `;
 
+export const Section = styled.section`
+  margin-top: 64px;
+`;
+
 export const BetweenContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -87,6 +91,21 @@ export const ContainedButton = styled(Button)`
   }
   &.MuiButton-root:hover {
     background-color: #213fc4;
+  }
+`;
+
+export const OutlinedButton = styled(Button)`
+  &.MuiButton-outlined {
+    border: 1px solid ${palette.colors.grey};
+    border-radius: 999px;
+    padding: 10px 16px;
+    ${typography.body_regular};
+    text-transform: capitalize;
+    min-width: 96px;
+    color: ${palette.colors.primary};
+  }
+  &.MuiButton-root:hover {
+    background-color: gainsboro;
   }
 `;
 

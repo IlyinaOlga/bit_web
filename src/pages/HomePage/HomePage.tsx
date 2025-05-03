@@ -1,26 +1,37 @@
 import { FC, useState } from 'react';
+import {
+  BetweenContainer,
+  Container,
+  OutlinedButton,
+  Section,
+  Title,
+} from '../../core/styles';
+import { CardGroup } from './HomePage.styled';
+import { CardComponent } from '../../components';
+import { newsArr } from '../../core/mock';
 
-interface CounterProps {
-  initialCount?: number;
-}
-
-const HomePage: FC<CounterProps> = ({ initialCount = 0 }) => {
-  const [count, setCount] = useState<number>(initialCount);
-
-  const increment = () => {
-    setCount(count + 1);
-  };
-
-  const decrement = () => {
-    setCount(count - 1);
-  };
-
+const HomePage: FC<any> = () => {
   return (
-    <div>
-      <h1>Счётчик: {count}</h1>
-      <button onClick={increment}>Увеличить</button>
-      <button onClick={decrement}>Уменьшить</button>
-    </div>
+    <Container>
+      <Section>
+        <BetweenContainer>
+          <Title>Что нового</Title>
+          {/* <OutlinedButton variant='outlined'>Смотреть все</OutlinedButton> */}
+        </BetweenContainer>
+        <CardGroup>
+          {newsArr?.length &&
+            newsArr.map((item) => (
+              <CardComponent
+                id={item.id}
+                title={item.title}
+                img={item.img}
+                text={item.text}
+                date={item.date}
+              />
+            ))}
+        </CardGroup>
+      </Section>
+    </Container>
   );
 };
 

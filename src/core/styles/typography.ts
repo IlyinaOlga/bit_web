@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 export const fontSize = (
   fontMin: number,
   fontMax: number,
@@ -56,10 +58,10 @@ export const typography = {
     fontWeight: 500,
   }),
   title_large: createTypography({
-    fontMin: 22,
-    fontMax: 22,
-    lineHeight: 1.27,
-    fontWeight: 400,
+    fontMin: 40,
+    fontMax: 40,
+    lineHeight: 1.1,
+    fontWeight: 700,
   }),
   title_medium: createTypography({
     fontMin: 16,
@@ -67,4 +69,20 @@ export const typography = {
     lineHeight: 1.25,
     fontWeight: 700,
   }),
+  card_title: createTypography({
+    fontMin: 20,
+    fontMax: 20,
+    lineHeight: 1.2,
+    fontWeight: 700,
+  }),
+  card_body: createTypography({
+    fontMin: 16,
+    fontMax: 16,
+    lineHeight: 1.5,
+    fontWeight: 400,
+  }),
 };
+
+export const Title = styled.h1`
+  ${typography.title_large};
+`;
