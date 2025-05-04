@@ -69,6 +69,12 @@ export const typography = {
     lineHeight: 1.25,
     fontWeight: 700,
   }),
+  subtitle: createTypography({
+    fontMin: 28,
+    fontMax: 28,
+    lineHeight: 1.14,
+    fontWeight: 700,
+  }),
   card_title: createTypography({
     fontMin: 20,
     fontMax: 20,
@@ -85,4 +91,8 @@ export const typography = {
 
 export const Title = styled.h1`
   ${typography.title_large};
+`;
+
+export const Subtitle = styled.h2`
+  ${typography.subtitle};
 `;
