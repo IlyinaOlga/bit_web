@@ -93,7 +93,7 @@ const AboutPage: FC<any> = () => {
           <DirectionsGroup>
             {directionsArr?.length &&
               directionsArr.map((item, index) => (
-                <DirectionItem>
+                <DirectionItem key={`${item.direction}${index}`}>
                   <Order>{index + 1}</Order>
                   {item.direction}
                 </DirectionItem>
@@ -105,8 +105,8 @@ const AboutPage: FC<any> = () => {
           <Subtitle>Наши преподаватели</Subtitle>
           <TeachersGroup>
             {teachersArr?.length &&
-              teachersArr.map((item) => (
-                <TeacherItem>
+              teachersArr.map((item, index) => (
+                <TeacherItem key={`${item.name}${index}`}>
                   <TeacherName>{item.name}</TeacherName>
                   <TeacherPosition>{item.position}</TeacherPosition>
                 </TeacherItem>

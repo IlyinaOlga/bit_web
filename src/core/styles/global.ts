@@ -172,3 +172,9 @@ export const ColumnGap64 = styled.div`
   flex-direction: column;
   gap: 64px;
 `;
+
+export const ColumnGap16 = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;

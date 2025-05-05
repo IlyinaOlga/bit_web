@@ -8,7 +8,7 @@ export const Router: FC = () => {
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/article" element={<ArticlePage />} />
-      <Route path="/conference/:id" element={<ConferencePage />} />
+      <Route path="/conference/:conferenceId" element={<ConferencePage />} />
       {/* <Route
         path={`${APP_ROUTES.DASHBOASD}`}
         element={

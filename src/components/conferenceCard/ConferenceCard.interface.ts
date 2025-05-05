@@ -1,4 +1,4 @@
-interface ConferenceCardDetails {
+export interface ConferenceCardDetails {
   country: string,
   city: string,
   period: string,

@@ -27,6 +27,7 @@ const HomePage: FC<any> = () => {
                   img={item.img}
                   text={item.text}
                   date={item.date}
+                  key={`${item.id}`}
                 />
               ))}
           </CardGroup>
@@ -44,6 +45,7 @@ const HomePage: FC<any> = () => {
                   id={item.id}
                   title={item.title}
                   details={item.details}
+                  key={`${item.id}`}
                 />
               ))}
           </ConferenceGroup>
