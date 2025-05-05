@@ -31,12 +31,14 @@ import { Link } from "@mui/material";
 import { ReactComponent as ParticipantIcon } from "../../icons/participant.svg";
 import SfeduLogo from "../../images/sfedu_logo.png";
 import IktibLogo from "../../images/iktib_logo.png";
+import { ConferenceRegistrationPage } from "../ConferenceRegistrationPage";
 
 const ConferencePage: FC = () => {
   const { conferenceId } = useParams();
   const [conf, setConf] = useState<IConferencePage | null>(null);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setisExpanded] = useState(false);
   const [height, setHeight] = useState("0px");
+  const [openConfForm, setConfForm] = useState<boolean>(false);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -57,8 +59,17 @@ const ConferencePage: FC = () => {
   }, [isExpanded]);
 
   const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
+    setisExpanded(!isExpanded);
   };
+
+  const handleConfForm = () => {
+    setConfForm(true);
+  };
+
+  const handleClose = () => {
+    setConfForm(false);
+  };
+
   return (
     <ContainerPage>
       {conf && (
@@ -146,7 +157,10 @@ const ConferencePage: FC = () => {
                     </ConditionBody>
 
                     <ButtonGroup>
-                      <ParticipantButton variant="contained">
+                      <ParticipantButton
+                        variant="contained"
+                        onClick={handleConfForm}
+                      >
                         <ParticipantIcon />
                         Стать участником
                       </ParticipantButton>
@@ -228,7 +242,7 @@ const ConferencePage: FC = () => {
               <div>
                 <Subtitle>Программный комитет</Subtitle>
                 <TeachersList
-                  isExpanded={isExpanded}
+                  isexpanded={isExpanded ? "true" : "false"}
                   heigth={height}
                   ref={contentRef}
                 >
@@ -298,6 +312,10 @@ const ConferencePage: FC = () => {
               </CardGroup>
             </ColumnGap64>
           </section>
+
+          {openConfForm && (
+            <ConferenceRegistrationPage open={true} onClose={handleClose} />
+          )}
         </>
       )}
     </ContainerPage>

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ContainedButton, Container, palette, typography } from "../../core/styles";
 
 interface TeachersListProps {
-  isExpanded: boolean;
+  isexpanded: string;
   heigth: string;
 }
 
@@ -102,7 +102,7 @@ export const TeachersList = styled.div<TeachersListProps>`
   gap: 16px;
   margin-top: 16px;
   ${typography.body_regular};
-  max-height: ${props => props.isExpanded ? props.heigth : '180px'};
+  max-height: ${props => props.isexpanded === "true" ? props.heigth : '180px'};
   overflow: hidden;
   transition: max-height 0.5s ease;
 `;
