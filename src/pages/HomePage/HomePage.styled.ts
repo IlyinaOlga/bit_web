@@ -5,6 +5,10 @@ export const CardGroup = styled.div`
   grid-template-columns: repeat(4, 1fr);
   margin-top: 32px;
   gap: 24px;
+
+  & div {
+    cursor: auto;
+  }
 `;
 
 export const ConferenceGroup = styled.div`

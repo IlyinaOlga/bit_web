@@ -1,14 +1,18 @@
-import { DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import { FC, useContext } from 'react';
-import { FieldGroup, StyledDialog } from './LoginPage.styled';
-import { ContainedButton, Field, TextButton, FormCol } from '../../core/styles';
-import { Controller, useForm } from 'react-hook-form';
-import { LoginFormValues, LoginProps } from './LoginPage.types';
-import { authSchema } from '../../core/scheme';
-import { joiResolver } from '@hookform/resolvers/joi';
-import { Store } from '../../core/store';
-import { setNameValue } from '../../core/store/authorize';
-import { setLocalStorage } from '../../core/utils';
+import { DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import { FC, useContext } from "react";
+import { FieldGroup, StyledDialog } from "./LoginPage.styled";
+import { ContainedButton, Field, TextButton, FormCol } from "../../core/styles";
+import { Controller, useForm } from "react-hook-form";
+import { LoginFormValues, LoginProps } from "./LoginPage.types";
+import { authSchema } from "../../core/scheme";
+import { joiResolver } from "@hookform/resolvers/joi";
+import { Store } from "../../core/store";
+import { setNameValue } from "../../core/store/authorize";
+import { setLocalStorage } from "../../core/utils";
+import { useMutation } from "@tanstack/react-query";
+import { LoginFormResponseSuccess } from "../../core/types";
+import axios from "axios";
+import { API_ROUTES } from "../../core/constants";
 
 const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
   const { dispatch } = useContext(Store);
@@ -17,19 +21,26 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
     control,
     formState: { errors, isValid },
   } = useForm<LoginFormValues>({
-    mode: 'onChange',
+    mode: "onChange",
     resolver: joiResolver(authSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
-  const onSubmit = (data: any) => {
-    // mutate(data);
-    console.log(data);
 
-    dispatch(setNameValue('Сергей И.'));
-    setLocalStorage('user', 'Сергей И.');
+  const { mutate } = useMutation({
+    mutationFn: (data) => {
+      return axios.post(API_ROUTES.LOGIN, data);
+    },
+  });
+
+  const onSubmit = (data: any) => {
+    mutate(data);
+    // console.log(data);
+
+    // dispatch(setNameValue("Сергей И."));
+    // setLocalStorage("user", "Сергей И.");
 
     onClose();
   };
@@ -42,12 +53,12 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
             <FieldGroup>
               <Controller
                 control={control}
-                name='email'
+                name="email"
                 render={({ field: { value, onBlur, onChange } }) => (
                   <Field
                     onBlur={onBlur}
-                    variant='standard'
-                    placeholder='Ваша эл. почта'
+                    variant="standard"
+                    placeholder="Ваша эл. почта"
                     focused={value ? true : false}
                     value={value}
                     error={!!errors?.email?.message}
@@ -59,13 +70,13 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
 
               <Controller
                 control={control}
-                name='password'
+                name="password"
                 render={({ field: { value, onBlur, onChange } }) => (
                   <Field
                     onBlur={onBlur}
-                    variant='standard'
-                    placeholder='Пароль'
-                    type='password'
+                    variant="standard"
+                    placeholder="Пароль"
+                    type="password"
                     focused={value ? true : false}
                     value={value}
                     error={!!errors?.password?.message}
@@ -79,8 +90,8 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
           <DialogActions>
             <TextButton onClick={onClose}>Отменить</TextButton>
             <ContainedButton
-              type='submit'
-              variant='contained'
+              type="submit"
+              variant="contained"
               disabled={!isValid}
             >
               Войти

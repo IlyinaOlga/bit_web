@@ -31,6 +31,7 @@ export const ConditionContainer = styled.div`
   border-radius: 28px;
   padding: 48px;
   width: 50%;
+  height: fit-content;
 `;
 
 export const ConditionBody = styled.div`
@@ -102,7 +103,7 @@ export const TeachersList = styled.div<TeachersListProps>`
   gap: 16px;
   margin-top: 16px;
   ${typography.body_regular};
-  max-height: ${props => props.isexpanded === "true" ? props.heigth : '180px'};
+  max-height: ${props => props.isexpanded === "true" ? props.heigth : '170px'};
   overflow: hidden;
   transition: max-height 0.5s ease;
 `;

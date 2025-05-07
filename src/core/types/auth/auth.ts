@@ -1,8 +1,3 @@
-export interface LoginFormValues {
-  login: string;
-  password: string;
-}
-
 export interface User {
   id: number;
   first_name: string;
@@ -10,17 +5,9 @@ export interface User {
   login: string;
 }
 export interface LoginFormResponseSuccess {
-  result: boolean;
-  user: User;
+  status: string;
 }
+
 export interface LoginErrorResponse {
-  message: string;
-  errors: {
-    login?: string[];
-    password?: string[];
-  };
-}
-export interface LoginErrors {
-  login?: string[];
-  password?: string[];
+  status: string;
 }
