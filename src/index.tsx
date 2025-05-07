@@ -6,10 +6,18 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router";
 import { StoreProvider } from "./core/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SnackbarProvider } from "notistack";
+import { ReportComplete } from "./components";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+declare module "notistack" {
+  interface VariantOverrides {
+    reportComplete: true;
+  }
+}
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,13 +29,21 @@ const queryClient = new QueryClient({
 
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <StoreProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </StoreProvider>
-    </QueryClientProvider>
+    <SnackbarProvider
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "left",
+      }}
+      Components={{ reportComplete: ReportComplete }}
+    >
+      <QueryClientProvider client={queryClient}>
+        <StoreProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </StoreProvider>
+      </QueryClientProvider>
+    </SnackbarProvider>
   </React.StrictMode>
 );
 

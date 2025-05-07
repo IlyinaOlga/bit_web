@@ -13,6 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import { LoginFormResponseSuccess } from "../../core/types";
 import axios from "axios";
 import { API_ROUTES } from "../../core/constants";
+import { enqueueSnackbar } from "notistack";
 
 const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
   const { dispatch } = useContext(Store);
@@ -31,8 +32,15 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
 
   const { mutate } = useMutation({
     mutationFn: (data) => {
+      enqueueSnackbar("Сообщение отправлено", {
+        variant: "reportComplete",
+        className: "success",
+        preventDuplicate: true,
+      });
       return axios.post(API_ROUTES.LOGIN, data);
     },
+    onSuccess: () => {},
+    onError: () => {},
   });
 
   const onSubmit = (data: any) => {
