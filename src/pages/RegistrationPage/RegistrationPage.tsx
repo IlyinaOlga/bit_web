@@ -15,6 +15,10 @@ import {
 import { registrationSchema } from "../../core/scheme";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { StyledDialogContent } from "./RegistrationPage.styled";
+import { useMutation } from "@tanstack/react-query";
+import { API_ROUTES } from "../../core/constants";
+import axios from "axios";
+import { enqueueSnackbar } from "notistack";
 
 const RegistrationPage: FC<RegistrationProps> = ({ open, onClose }) => {
   const {
@@ -30,35 +34,35 @@ const RegistrationPage: FC<RegistrationProps> = ({ open, onClose }) => {
     },
   });
 
-  // const { mutate, isPending } = useMutation({
-  //   mutationFn: (data) => {
-  //     return axios.post(API_ROUTES.LOGIN, data);
-  //   },
-  //   onSuccess: (res: any) => {
-  //     const { name } = res.data;
-  //     dispatch(setNameValue(name));
-  //     setLocalStorage("user", name);
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data) => {
+      return axios.post(API_ROUTES.REGISTRATION, data);
+    },
+    onSuccess: (res: any) => {
+      const { message } = res.data;
+      console.log(res, "success");
 
-  //     enqueueSnackbar("Вы авторизовались!", {
-  //       variant: "reportComplete",
-  //       className: "success",
-  //       preventDuplicate: true,
-  //     });
-  //     console.log(res, "success");
-  //     onClose();
-  //   },
-  //   onError: () => {
-  //     enqueueSnackbar("Неверный email или пароль", {
-  //       variant: "reportComplete",
-  //       className: "error",
-  //       preventDuplicate: true,
-  //     });
-  //     onClose();
-  //   },
-  // });
+      enqueueSnackbar(message, {
+        variant: "reportComplete",
+        className: "success",
+        preventDuplicate: true,
+      });
+      onClose();
+    },
+    onError: (res: any) => {
+      console.log(res, "error");
+
+      // enqueueSnackbar("Произошла ошибка!", {
+      //   variant: "reportComplete",
+      //   className: "error",
+      //   preventDuplicate: true,
+      // });
+      onClose();
+    },
+  });
 
   const onSubmit = (data: any) => {
-    // mutate(data);
+    mutate(data);
   };
 
   return (
@@ -111,7 +115,7 @@ const RegistrationPage: FC<RegistrationProps> = ({ open, onClose }) => {
             <ContainedButton
               type="submit"
               variant="contained"
-              disabled={!isValid}
+              disabled={!isValid || isPending}
             >
               Зарегистрироваться
             </ContainedButton>

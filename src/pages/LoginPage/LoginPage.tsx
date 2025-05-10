@@ -34,17 +34,26 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
       return axios.post(API_ROUTES.LOGIN, data);
     },
     onSuccess: (res: any) => {
-      const { name } = res.data;
-      dispatch(setNameValue(name));
-      setLocalStorage("user", name);
+      const { name, status } = res.data;
 
-      enqueueSnackbar("Вы авторизовались!", {
-        variant: "reportComplete",
-        className: "success",
-        preventDuplicate: true,
-      });
-      console.log(res, "success");
-      onClose();
+      if (name) {
+        dispatch(setNameValue(name));
+        setLocalStorage("user", name);
+        enqueueSnackbar("Вы авторизовались!", {
+          variant: "reportComplete",
+          className: "success",
+          preventDuplicate: true,
+        });
+        onClose();
+      }
+
+      if (status === "inactive") {
+        enqueueSnackbar("Вы не активировали аккаунт", {
+          variant: "reportComplete",
+          className: "success",
+          preventDuplicate: true,
+        });
+      }
     },
     onError: () => {
       enqueueSnackbar("Неверный email или пароль", {
