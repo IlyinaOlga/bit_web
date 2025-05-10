@@ -1,4 +1,4 @@
-import { useState, FC, useContext, useEffect } from 'react';
+import { useState, FC, useContext, useEffect } from "react";
 import {
   ArticleBtn,
   Group,
@@ -10,18 +10,22 @@ import {
   LogoutBtn,
   RegistrationBtn,
   User,
-} from './Header.styled';
-import { BetweenContainer, StyledLink } from '../../core/styles';
-import { ReactComponent as LogoutIcon } from '../../icons/logout_icon.svg';
-import { ReactComponent as LoginIcon } from '../../icons/account_circle.svg';
-import { ReactComponent as ArticleIcon } from '../../icons/custom-lead-icon.svg';
-import { LoginPage, RegistrationPage } from '../../pages';
-import { Store } from '../../core/store';
-import { getLocalStorage, removeLocalStorage } from '../../core/utils';
-import { setNameValue } from '../../core/store/authorize';
+} from "./Header.styled";
+import { BetweenContainer, StyledLink } from "../../core/styles";
+import { ReactComponent as LogoutIcon } from "../../icons/logout_icon.svg";
+import { ReactComponent as LoginIcon } from "../../icons/account_circle.svg";
+import { ReactComponent as ArticleIcon } from "../../icons/custom-lead-icon.svg";
+import { LoginPage, RegistrationPage } from "../../pages";
+import { Store } from "../../core/store";
+import { getLocalStorage, removeLocalStorage } from "../../core/utils";
+import { setNameValue } from "../../core/store/authorize";
+import { useMutation } from "@tanstack/react-query";
+import { API_ROUTES } from "../../core/constants";
+import axios from "axios";
+import { enqueueSnackbar } from "notistack";
 
 const Header: FC = () => {
-  const [openModal, setOpenModal] = useState<'login' | 'registration' | null>(
+  const [openModal, setOpenModal] = useState<"login" | "registration" | null>(
     null
   );
 
@@ -33,19 +37,37 @@ const Header: FC = () => {
   } = useContext(Store);
 
   useEffect(() => {
-    const userName = getLocalStorage('user');
+    const userName = getLocalStorage("user");
 
     if (userName) {
       dispatch(setNameValue(userName));
     }
   }, [dispatch]);
 
+  const { mutate } = useMutation({
+    mutationFn: () => {
+      return axios.get(API_ROUTES.LOGOUT);
+    },
+    onSuccess: (res: any) => {
+      removeLocalStorage("user");
+      const userName = "";
+      dispatch(setNameValue(userName));
+    },
+    onError: () => {
+      enqueueSnackbar("Произошла ошибка!", {
+        variant: "reportComplete",
+        className: "error",
+        preventDuplicate: true,
+      });
+    },
+  });
+
   const handleOpenLogin = () => {
-    setOpenModal('login');
+    setOpenModal("login");
   };
 
   const handleOpenRegistration = () => {
-    setOpenModal('registration');
+    setOpenModal("registration");
   };
 
   const handleClose = () => {
@@ -53,25 +75,23 @@ const Header: FC = () => {
   };
 
   const logout = () => {
-    removeLocalStorage('user');
-    const userName = '';
-    dispatch(setNameValue(userName));
+    mutate();
   };
 
   return (
     <HeaderContainer>
       <BetweenContainer>
         <Group>
-          <StyledLink to='/'>
+          <StyledLink to="/">
             <HeaderTitle>Кафедра БИТ</HeaderTitle>
           </StyledLink>
-          <StyledLink to='/about'>О кафедре</StyledLink>
+          <StyledLink to="/about">О кафедре</StyledLink>
         </Group>
 
         {name ? (
           <Group>
             <GroupGap8>
-              <StyledLink to='/article'>
+              <StyledLink to="/article">
                 <ArticleBtn>
                   <ArticleIcon />
                   Статьи для проверки
@@ -86,7 +106,7 @@ const Header: FC = () => {
           </Group>
         ) : (
           <GroupGap12>
-            <LoginBtn variant='outlined' onClick={handleOpenLogin}>
+            <LoginBtn variant="outlined" onClick={handleOpenLogin}>
               <LoginIcon />
               Войти
             </LoginBtn>
@@ -96,10 +116,10 @@ const Header: FC = () => {
           </GroupGap12>
         )}
 
-        {openModal === 'login' && (
+        {openModal === "login" && (
           <LoginPage open={true} onClose={handleClose} />
         )}
-        {openModal === 'registration' && (
+        {openModal === "registration" && (
           <RegistrationPage open={true} onClose={handleClose} />
         )}
       </BetweenContainer>

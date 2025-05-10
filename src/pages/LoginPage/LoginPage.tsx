@@ -10,7 +10,6 @@ import { Store } from "../../core/store";
 import { setNameValue } from "../../core/store/authorize";
 import { setLocalStorage } from "../../core/utils";
 import { useMutation } from "@tanstack/react-query";
-import { LoginFormResponseSuccess } from "../../core/types";
 import axios from "axios";
 import { API_ROUTES } from "../../core/constants";
 import { enqueueSnackbar } from "notistack";
@@ -60,6 +59,7 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
   const onSubmit = (data: any) => {
     mutate(data);
   };
+
   return (
     <StyledDialog open={open} onClose={onClose}>
       <form onSubmit={handleSubmit(onSubmit)}>

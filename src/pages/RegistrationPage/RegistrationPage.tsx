@@ -1,20 +1,20 @@
-import { DialogTitle, DialogActions } from '@mui/material';
-import { FC } from 'react';
-import { FieldGroup, StyledDialog } from '../LoginPage/LoginPage.styled';
+import { DialogTitle, DialogActions } from "@mui/material";
+import { FC } from "react";
+import { FieldGroup, StyledDialog } from "../LoginPage/LoginPage.styled";
 import {
   ContainedButton,
   FilledField,
   FormCol,
   TextButton,
-} from '../../core/styles';
-import { Controller, useForm } from 'react-hook-form';
+} from "../../core/styles";
+import { Controller, useForm } from "react-hook-form";
 import {
   RegistrationFormValues,
   RegistrationProps,
-} from './RegistrationPage.types';
-import { registrationSchema } from '../../core/scheme';
-import { joiResolver } from '@hookform/resolvers/joi';
-import { StyledDialogContent } from './RegistrationPage.styled';
+} from "./RegistrationPage.types";
+import { registrationSchema } from "../../core/scheme";
+import { joiResolver } from "@hookform/resolvers/joi";
+import { StyledDialogContent } from "./RegistrationPage.styled";
 
 const RegistrationPage: FC<RegistrationProps> = ({ open, onClose }) => {
   const {
@@ -22,18 +22,45 @@ const RegistrationPage: FC<RegistrationProps> = ({ open, onClose }) => {
     control,
     formState: { errors, isValid },
   } = useForm<RegistrationFormValues>({
-    mode: 'onChange',
+    mode: "onChange",
     resolver: joiResolver(registrationSchema),
     defaultValues: {
-      name: '',
-      email: '',
+      name: "",
+      email: "",
     },
   });
+
+  // const { mutate, isPending } = useMutation({
+  //   mutationFn: (data) => {
+  //     return axios.post(API_ROUTES.LOGIN, data);
+  //   },
+  //   onSuccess: (res: any) => {
+  //     const { name } = res.data;
+  //     dispatch(setNameValue(name));
+  //     setLocalStorage("user", name);
+
+  //     enqueueSnackbar("Вы авторизовались!", {
+  //       variant: "reportComplete",
+  //       className: "success",
+  //       preventDuplicate: true,
+  //     });
+  //     console.log(res, "success");
+  //     onClose();
+  //   },
+  //   onError: () => {
+  //     enqueueSnackbar("Неверный email или пароль", {
+  //       variant: "reportComplete",
+  //       className: "error",
+  //       preventDuplicate: true,
+  //     });
+  //     onClose();
+  //   },
+  // });
+
   const onSubmit = (data: any) => {
     // mutate(data);
-    console.log(data);
-    onClose();
   };
+
   return (
     <StyledDialog open={open} onClose={onClose}>
       <form onSubmit={handleSubmit(onSubmit)}>
