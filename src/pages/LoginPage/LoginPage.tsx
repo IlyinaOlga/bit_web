@@ -30,27 +30,35 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
     },
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (data) => {
-      enqueueSnackbar("Сообщение отправлено", {
+      return axios.post(API_ROUTES.LOGIN, data);
+    },
+    onSuccess: (res: any) => {
+      const { name } = res.data;
+      dispatch(setNameValue(name));
+      setLocalStorage("user", name);
+
+      enqueueSnackbar("Вы авторизовались!", {
         variant: "reportComplete",
         className: "success",
         preventDuplicate: true,
       });
-      return axios.post(API_ROUTES.LOGIN, data);
+      console.log(res, "success");
+      onClose();
     },
-    onSuccess: () => {},
-    onError: () => {},
+    onError: () => {
+      enqueueSnackbar("Неверный email или пароль", {
+        variant: "reportComplete",
+        className: "error",
+        preventDuplicate: true,
+      });
+      onClose();
+    },
   });
 
   const onSubmit = (data: any) => {
     mutate(data);
-    // console.log(data);
-
-    // dispatch(setNameValue("Сергей И."));
-    // setLocalStorage("user", "Сергей И.");
-
-    onClose();
   };
   return (
     <StyledDialog open={open} onClose={onClose}>
@@ -100,7 +108,7 @@ const LoginPage: FC<LoginProps> = ({ open, onClose }) => {
             <ContainedButton
               type="submit"
               variant="contained"
-              disabled={!isValid}
+              disabled={!isValid || isPending}
             >
               Войти
             </ContainedButton>
