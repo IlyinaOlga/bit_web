@@ -2,9 +2,11 @@ import Joi from "joi";
 import {
   emailSchema,
   nameSchema,
-  // nameSchema,
-  // loginSchema,
+  stringScheme,
   passwordSchema,
+  phoneSchema,
+  stringArrayScheme,
+  fileSchema,
 
 } from "./scheme-components";
 
@@ -18,6 +20,17 @@ export const registrationSchema = Joi.object({
   email: emailSchema(),
 });
 
+
+export const confRegScheme = Joi.object({
+  author_names: stringArrayScheme(),
+  send_name: stringArrayScheme(),
+  phone: phoneSchema(),
+  email: emailSchema(),
+  title: stringScheme(),
+  type: stringScheme(),
+  annotation: stringScheme(),
+  file: fileSchema(),
+})
 // export const settingsSchema = Joi.object({
 //   first_name: stringSchema(),
 //   last_name: stringSchema(),

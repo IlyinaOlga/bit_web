@@ -1,7 +1,14 @@
-import { FC } from 'react';
+import { FC } from "react";
+import { Container, Title } from "../../core/styles";
 
 const ArticlePage: FC<any> = () => {
-  return <div>article page</div>;
+  return (
+    <Container>
+      <section>
+        <Title>Статьи</Title>
+      </section>
+    </Container>
+  );
 };
 
 export default ArticlePage;

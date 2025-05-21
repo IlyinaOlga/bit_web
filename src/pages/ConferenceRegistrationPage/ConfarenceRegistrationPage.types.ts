@@ -6,7 +6,7 @@ export interface ConferenceRegistrationFormValues {
   title: string;
   type: string;
   annotation: string;
-  file: any;
+  file: File | null;
 }
 
 export interface ConferenceRegistrationProps {

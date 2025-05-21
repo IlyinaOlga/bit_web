@@ -173,7 +173,7 @@ const ConferencePage: FC = () => {
                 </Gap48>
               </div>
 
-              <div>
+              <div id="letter">
                 <Subtitle>Информационное письмо</Subtitle>
                 <TextWrap>
                   <ColumnGap16>

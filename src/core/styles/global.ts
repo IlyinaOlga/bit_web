@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import styled from "styled-components";
 import { typography } from "./typography";
-import { Button, TextField } from "@mui/material";
+import { Button, FormLabel, RadioGroup, TextField } from "@mui/material";
 import { palette } from "./theme";
 
 export const StyledLink = styled(Link)`
@@ -177,4 +177,21 @@ export const ColumnGap16 = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+`;
+
+export const StyledLabel = styled(FormLabel)`
+  & .MuiFormLabel-root {
+    color: ${palette.colors.grey_dark};
+    ${typography.body_medium}
+  }
+`;
+
+export const StyledRadioGroup = styled(RadioGroup)`
+  & .MuiFormControlLabel-label {
+    ${typography.body_medium}
+  }
+
+  & .MuiSvgIcon-root {
+    fill: ${palette.colors.grey_dark}
+  }
 `;

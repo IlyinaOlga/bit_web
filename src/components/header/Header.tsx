@@ -23,8 +23,10 @@ import { useMutation } from "@tanstack/react-query";
 import { API_ROUTES } from "../../core/constants";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
+import { useNavigate } from "react-router";
 
 const Header: FC = () => {
+  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState<"login" | "registration" | null>(
     null
   );
@@ -76,6 +78,7 @@ const Header: FC = () => {
 
   const logout = () => {
     mutate();
+    navigate("/");
   };
 
   return (
