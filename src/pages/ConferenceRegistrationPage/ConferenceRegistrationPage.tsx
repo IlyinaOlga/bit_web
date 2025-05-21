@@ -4,11 +4,10 @@ import {
   DialogActions,
   FormControl,
   FormLabel,
-  RadioGroup,
   FormControlLabel,
   Radio,
 } from "@mui/material";
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import {
   ContainedButton,
   Field,
@@ -29,6 +28,11 @@ import { enqueueSnackbar } from "notistack";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { API_ROUTES } from "../../core/constants";
+import {
+  InputUpload,
+  InputUploadContainer,
+} from "./ConferenceRegistrationPage.styled";
+import { ReactComponent as DownloadIcon } from "../../icons/download.svg";
 
 const ConferenceRegistrationPage: FC<ConferenceRegistrationProps> = ({
   open,
@@ -52,6 +56,17 @@ const ConferenceRegistrationPage: FC<ConferenceRegistrationProps> = ({
       file: null,
     },
   });
+
+  const handleFileChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    onChange: (file: File | null) => void
+  ) => {
+    if (e.target.files && e.target.files.length > 0) {
+      onChange(e.target.files[0]);
+    } else {
+      onChange(null);
+    }
+  };
 
   const { mutate, isPending } = useMutation({
     mutationFn: (formData: FormData) => {
@@ -227,6 +242,9 @@ const ConferenceRegistrationPage: FC<ConferenceRegistrationProps> = ({
                 />
               </FormControl>
 
+              <StyledLabel>
+                <FormLabel component="legend">Статья</FormLabel>
+              </StyledLabel>
               <Controller
                 name="file"
                 control={control}
@@ -234,14 +252,17 @@ const ConferenceRegistrationPage: FC<ConferenceRegistrationProps> = ({
                   <div>
                     <input
                       type="file"
-                      onChange={(e) => {
-                        if (e.target.files && e.target.files.length > 0) {
-                          field.onChange(e.target.files[0]);
-                        } else {
-                          field.onChange(null);
-                        }
-                      }}
+                      id="file-upload"
+                      style={{ display: "none" }}
+                      onChange={(e) => handleFileChange(e, field.onChange)}
                     />
+                    <InputUploadContainer>
+                      <InputUpload htmlFor="file-upload">
+                        <DownloadIcon />
+                        Загрузить&nbsp;файл
+                      </InputUpload>
+                      {field.value && <p>Выбран файл: {field.value.name}</p>}
+                    </InputUploadContainer>
                   </div>
                 )}
               />
