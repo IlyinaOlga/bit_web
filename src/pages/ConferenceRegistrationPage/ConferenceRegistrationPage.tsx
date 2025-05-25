@@ -53,7 +53,7 @@ const ConferenceRegistrationPage: FC<ConferenceRegistrationProps> = ({
       title: "",
       type: "",
       annotation: "",
-      file: null,
+      file: undefined,
     },
   });
 

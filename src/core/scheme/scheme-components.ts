@@ -51,8 +51,8 @@ export const nameSchema = (
 export const stringScheme = (
   required = 'Поле обязательно для заполнения'
 ) => Joi.string()
-    .regex(/^[a-zA-Zа-яёА-ЯЁ]+(?:[-' ][a-zA-Zа-яёА-ЯЁ]+)*$/)
     .required()
+    .max(255)
     .messages({
       'string.empty': required,
     });
@@ -60,7 +60,7 @@ export const stringScheme = (
 export const stringArrayScheme = (
   required = 'Поле обязательно для заполнения'
 ) => Joi.string()
-  .regex(/^[a-zA-Zа-яёА-ЯЁ]+(?:[\s,]+[a-zA-Zа-яёА-ЯЁ]+)*$/)
+  .regex(/^[a-zA-Zа-яёА-ЯЁ]+(?:[\s,\d]+[a-zA-Zа-яёА-ЯЁ]+)*$/)
   .required()
   .messages({
     'string.empty': required,

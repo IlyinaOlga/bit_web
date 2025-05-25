@@ -14,6 +14,8 @@ export const ArticleData = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  width: 65%;
+  max-width: 950px;
 `;
 
 export const ArticleAuthor = styled.div`

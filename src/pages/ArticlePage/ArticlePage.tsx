@@ -6,23 +6,54 @@ import axios from "axios";
 import { API_ROUTES } from "../../core/constants";
 import { ArticleResponse } from "./ArticlePage.types";
 import ArticlesList from "./components/ArticlesList/ArticlesList";
+import PaginationComponent from "../../components/pagination/PaginationComponent";
 
 const ArticlePage: FC<any> = memo(() => {
   const [value, setValue] = useState("new");
   const [data, setData] = useState<ArticleResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [pages, setPages] = useState<{ [key: string]: number }>({
+    new: 1,
+    accepted: 1,
+    rejected: 1,
+  });
+  const limit = 10;
 
-  const handleChange = (event: SyntheticEvent, newValue: string) => {
+  const handleTabChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
-  const fetchArticles = async (endpoint: string) => {
+  const fetchArticles = async (tab: string, pageNumber: number) => {
     setLoading(true);
     setError(null);
+    const endpoint = (() => {
+      switch (tab) {
+        case "new":
+          return API_ROUTES.ARTICLES_NEW;
+        case "accepted":
+          return API_ROUTES.ARTICLES_ACCEPTED;
+        case "rejected":
+          return API_ROUTES.ARTICLES_REJECTED;
+        default:
+          return "";
+      }
+    })();
+
+    const offset = limit * (pageNumber - 1);
+
     try {
-      const response = await axios.get(endpoint, { withCredentials: true });
+      const response = await axios.get(endpoint, {
+        params: {
+          limit: limit,
+          offset: offset,
+        },
+        withCredentials: true,
+      });
       setData(response.data);
+
+      setTotalPages(Math.ceil(response.data.all_count / limit));
     } catch (err) {
       setError(err);
     } finally {
@@ -31,18 +62,13 @@ const ArticlePage: FC<any> = memo(() => {
   };
 
   useEffect(() => {
-    switch (value) {
-      case "new":
-        fetchArticles(API_ROUTES.ARTICLES_NEW);
-        break;
-      case "accepted":
-        fetchArticles(API_ROUTES.ARTICLES_ACCEPTED);
-        break;
-      case "rejected":
-        fetchArticles(API_ROUTES.ARTICLES_REJECTED);
-        break;
-    }
-  }, [value]);
+    const pageNum = pages[value] || 1;
+    fetchArticles(value, pageNum);
+  }, [value, pages]);
+
+  const handlePageChange = (newPage: number) => {
+    setPages((prev) => ({ ...prev, [value]: newPage }));
+  };
 
   if (loading) return <div>Загрузка...</div>;
   if (error) {
@@ -57,7 +83,10 @@ const ArticlePage: FC<any> = memo(() => {
         <Title>Статьи</Title>
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
+            <TabList
+              onChange={handleTabChange}
+              aria-label="lab API tabs example"
+            >
               <Tab label="Неоцененные статьи" value="new" />
               <Tab label="Одобренные" value="accepted" />
               <Tab label="Отклоненные" value="rejected" />
@@ -68,7 +97,7 @@ const ArticlePage: FC<any> = memo(() => {
               <ArticlesList
                 articles={data.articles}
                 tab={value}
-                refreshArticles={() => fetchArticles(API_ROUTES.ARTICLES_NEW)}
+                refreshArticles={() => fetchArticles(value, pages[value])}
               />
             )}
           </TabPanel>
@@ -77,9 +106,7 @@ const ArticlePage: FC<any> = memo(() => {
               <ArticlesList
                 articles={data.articles}
                 tab={value}
-                refreshArticles={() =>
-                  fetchArticles(API_ROUTES.ARTICLES_ACCEPTED)
-                }
+                refreshArticles={() => fetchArticles(value, pages[value])}
               />
             )}
           </TabPanel>
@@ -88,13 +115,19 @@ const ArticlePage: FC<any> = memo(() => {
               <ArticlesList
                 articles={data.articles}
                 tab={value}
-                refreshArticles={() =>
-                  fetchArticles(API_ROUTES.ARTICLES_REJECTED)
-                }
+                refreshArticles={() => fetchArticles(value, pages[value])}
               />
             )}
           </TabPanel>
         </TabContext>
+        <PaginationComponent
+          totalPages={totalPages}
+          page={pages[value] || 1}
+          setPage={(newPage) => {
+            handlePageChange(newPage);
+          }}
+          refreshArticles={(page) => fetchArticles(value, page)}
+        />
       </section>
     </Container>
   );
