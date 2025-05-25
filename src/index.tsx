@@ -22,29 +22,32 @@ declare module "notistack" {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      refetchOnMount: false,
       refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      staleTime: Infinity,
     },
   },
 });
 
 root.render(
-  <React.StrictMode>
-    <SnackbarProvider
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
-      }}
-      Components={{ reportComplete: ReportComplete }}
-    >
-      <QueryClientProvider client={queryClient}>
-        <StoreProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </StoreProvider>
-      </QueryClientProvider>
-    </SnackbarProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <SnackbarProvider
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "left",
+    }}
+    Components={{ reportComplete: ReportComplete }}
+  >
+    <QueryClientProvider client={queryClient}>
+      <StoreProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </StoreProvider>
+    </QueryClientProvider>
+  </SnackbarProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

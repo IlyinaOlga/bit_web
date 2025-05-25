@@ -48,7 +48,9 @@ const Header: FC = () => {
 
   const { mutate } = useMutation({
     mutationFn: () => {
-      return axios.get(API_ROUTES.LOGOUT);
+      return axios.get(API_ROUTES.LOGOUT, {
+        withCredentials: true,
+      });
     },
     onSuccess: (res: any) => {
       removeLocalStorage("user");
@@ -80,6 +82,10 @@ const Header: FC = () => {
     mutate();
     navigate("/");
   };
+
+  // useEffect(() => {
+  //   console.log(document.cookie, "cookie");
+  // }, []);
 
   return (
     <HeaderContainer>
