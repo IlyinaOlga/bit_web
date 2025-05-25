@@ -15,64 +15,34 @@ const ArticlePage: FC<any> = memo(() => {
 
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
-    switch (newValue) {
-      case "new":
-        getArticlesNew();
-        break;
-      case "accepted":
-        getArticlesAccepted();
-        break;
-      case "rejected":
-        getArticlesRejected();
-        break;
+  };
+
+  const fetchArticles = async (endpoint: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(endpoint, { withCredentials: true });
+      setData(response.data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const getArticlesNew = () => {
-    setLoading(true);
-    axios
-      .get(API_ROUTES.ARTICLES_NEW, { withCredentials: true })
-      .then((response) => {
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err);
-        setLoading(false);
-      });
-  };
-
-  const getArticlesAccepted = () => {
-    setLoading(true);
-    axios
-      .get(API_ROUTES.ARTICLES_ACCEPTED, { withCredentials: true })
-      .then((response) => {
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err);
-        setLoading(false);
-      });
-  };
-
-  const getArticlesRejected = () => {
-    setLoading(true);
-    axios
-      .get(API_ROUTES.ARTICLES_REJECTED, { withCredentials: true })
-      .then((response) => {
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err);
-        setLoading(false);
-      });
-  };
-
   useEffect(() => {
-    getArticlesNew();
-  }, []);
+    switch (value) {
+      case "new":
+        fetchArticles(API_ROUTES.ARTICLES_NEW);
+        break;
+      case "accepted":
+        fetchArticles(API_ROUTES.ARTICLES_ACCEPTED);
+        break;
+      case "rejected":
+        fetchArticles(API_ROUTES.ARTICLES_REJECTED);
+        break;
+    }
+  }, [value]);
 
   if (loading) return <div>Загрузка...</div>;
   if (error) {
@@ -94,13 +64,35 @@ const ArticlePage: FC<any> = memo(() => {
             </TabList>
           </Box>
           <TabPanel value="new">
-            {data && <ArticlesList articles={data.articles} />}
+            {data && (
+              <ArticlesList
+                articles={data.articles}
+                tab={value}
+                refreshArticles={() => fetchArticles(API_ROUTES.ARTICLES_NEW)}
+              />
+            )}
           </TabPanel>
           <TabPanel value="accepted">
-            {data && <ArticlesList articles={data.articles} />}
+            {data && (
+              <ArticlesList
+                articles={data.articles}
+                tab={value}
+                refreshArticles={() =>
+                  fetchArticles(API_ROUTES.ARTICLES_ACCEPTED)
+                }
+              />
+            )}
           </TabPanel>
           <TabPanel value="rejected">
-            {data && <ArticlesList articles={data.articles} />}
+            {data && (
+              <ArticlesList
+                articles={data.articles}
+                tab={value}
+                refreshArticles={() =>
+                  fetchArticles(API_ROUTES.ARTICLES_REJECTED)
+                }
+              />
+            )}
           </TabPanel>
         </TabContext>
       </section>

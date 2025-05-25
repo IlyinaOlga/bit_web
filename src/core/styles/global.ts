@@ -23,6 +23,10 @@ export const BetweenContainer = styled.div`
   justify-content: space-between;
 `;
 
+export const Grow1 = styled.div`
+  flex-grow: 1;
+`;
+
 export const Col = styled.div`
   display: flex;
   flex-direction: column;

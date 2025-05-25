@@ -96,3 +96,7 @@ export const Title = styled.h1`
 export const Subtitle = styled.h2`
   ${typography.subtitle};
 `;
+
+export const Text = styled.p`
+  ${typography.body_regular};
+`;
