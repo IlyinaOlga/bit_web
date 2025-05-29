@@ -94,6 +94,11 @@ export const TextWrap = styled.div`
   & p {
     ${typography.body_regular};
   }
+
+  & .MuiButton-root:hover {
+    background-color: ${palette.colors.surface_light};
+    border-color: ${palette.colors.surface};
+}
 `;
 
 export const TeachersList = styled.div<TeachersListProps>`

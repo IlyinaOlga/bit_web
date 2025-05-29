@@ -83,10 +83,6 @@ const Header: FC = () => {
     navigate("/");
   };
 
-  // useEffect(() => {
-  //   console.log(document.cookie, "cookie");
-  // }, []);
-
   return (
     <HeaderContainer>
       <BetweenContainer>

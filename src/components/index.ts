@@ -6,3 +6,4 @@ export * from './buttonBack';
 export * from './report-complete';
 export * from './toaster';
 export * from './pagination';
+export * from './spinner';

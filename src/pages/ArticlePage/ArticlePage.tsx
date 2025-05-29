@@ -1,12 +1,14 @@
 import { FC, memo, SyntheticEvent, useEffect, useState } from "react";
 import { Container, Title } from "../../core/styles";
-import { Box, Tab } from "@mui/material";
-import { TabContext, TabPanel, TabList } from "@mui/lab";
+import { Box } from "@mui/material";
+import { TabContext, TabPanel } from "@mui/lab";
 import axios from "axios";
 import { API_ROUTES } from "../../core/constants";
 import { ArticleResponse } from "./ArticlePage.types";
 import ArticlesList from "./components/ArticlesList/ArticlesList";
 import PaginationComponent from "../../components/pagination/PaginationComponent";
+import { Spinner } from "../../components";
+import { Section, StyledTab, StyledTabList } from "./ArticlePage.styled";
 
 const ArticlePage: FC<any> = memo(() => {
   const [value, setValue] = useState("new");
@@ -70,7 +72,6 @@ const ArticlePage: FC<any> = memo(() => {
     setPages((prev) => ({ ...prev, [value]: newPage }));
   };
 
-  if (loading) return <div>Загрузка...</div>;
   if (error) {
     console.log(error, "error");
 
@@ -79,56 +80,62 @@ const ArticlePage: FC<any> = memo(() => {
 
   return (
     <Container>
-      <section>
+      <Section>
         <Title>Статьи</Title>
-        <TabContext value={value}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList
-              onChange={handleTabChange}
-              aria-label="lab API tabs example"
-            >
-              <Tab label="Неоцененные статьи" value="new" />
-              <Tab label="Одобренные" value="accepted" />
-              <Tab label="Отклоненные" value="rejected" />
-            </TabList>
-          </Box>
-          <TabPanel value="new">
-            {data && (
-              <ArticlesList
-                articles={data.articles}
-                tab={value}
-                refreshArticles={() => fetchArticles(value, pages[value])}
-              />
-            )}
-          </TabPanel>
-          <TabPanel value="accepted">
-            {data && (
-              <ArticlesList
-                articles={data.articles}
-                tab={value}
-                refreshArticles={() => fetchArticles(value, pages[value])}
-              />
-            )}
-          </TabPanel>
-          <TabPanel value="rejected">
-            {data && (
-              <ArticlesList
-                articles={data.articles}
-                tab={value}
-                refreshArticles={() => fetchArticles(value, pages[value])}
-              />
-            )}
-          </TabPanel>
-        </TabContext>
-        <PaginationComponent
-          totalPages={totalPages}
-          page={pages[value] || 1}
-          setPage={(newPage) => {
-            handlePageChange(newPage);
-          }}
-          refreshArticles={(page) => fetchArticles(value, page)}
-        />
-      </section>
+        {!loading ? (
+          <>
+            <TabContext value={value}>
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <StyledTabList
+                  onChange={handleTabChange}
+                  aria-label="lab API tabs example"
+                >
+                  <StyledTab label="Неоцененные статьи" value="new" />
+                  <StyledTab label="Одобренные" value="accepted" />
+                  <StyledTab label="Отклоненные" value="rejected" />
+                </StyledTabList>
+              </Box>
+              <TabPanel value="new">
+                {data && (
+                  <ArticlesList
+                    articles={data.articles}
+                    tab={value}
+                    refreshArticles={() => fetchArticles(value, pages[value])}
+                  />
+                )}
+              </TabPanel>
+              <TabPanel value="accepted">
+                {data && (
+                  <ArticlesList
+                    articles={data.articles}
+                    tab={value}
+                    refreshArticles={() => fetchArticles(value, pages[value])}
+                  />
+                )}
+              </TabPanel>
+              <TabPanel value="rejected">
+                {data && (
+                  <ArticlesList
+                    articles={data.articles}
+                    tab={value}
+                    refreshArticles={() => fetchArticles(value, pages[value])}
+                  />
+                )}
+              </TabPanel>
+            </TabContext>
+            <PaginationComponent
+              totalPages={totalPages}
+              page={pages[value] || 1}
+              setPage={(newPage) => {
+                handlePageChange(newPage);
+              }}
+              refreshArticles={(page) => fetchArticles(value, page)}
+            />
+          </>
+        ) : (
+          <Spinner />
+        )}
+      </Section>
     </Container>
   );
 });

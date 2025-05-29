@@ -8,11 +8,17 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   color: inherit;
   ${typography.body_regular};
+
+  &:hover {
+    color: ${palette.colors.grey_dark};
+    transition: all ease-in-out 0.3s;
+  }
 `;
 
 export const Container = styled.div`
   width: 100%;
   max-width: 1480px;
+  height: 100%;
   margin: 0 auto;
   padding: 64px 16px 128px 16px;
 `;
@@ -78,6 +84,11 @@ export const TextButton = styled(Button)`
     padding: 10px 12px;
     border-radius: 999px;
   }
+  &.MuiButton-root.Mui-disabled svg {
+     path {
+      fill: rgba(0, 0, 0, 0.26);
+    }
+  }
 `;
 
 export const ContainedButton = styled(Button)`
@@ -91,6 +102,11 @@ export const ContainedButton = styled(Button)`
   }
   &.MuiButton-root:hover {
     background-color: #213fc4;
+  }
+  &.MuiButton-root.Mui-disabled svg {
+     path {
+      fill: rgba(0, 0, 0, 0.26);
+    }
   }
 `;
 

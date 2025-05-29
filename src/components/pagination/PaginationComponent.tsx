@@ -1,5 +1,6 @@
 import { Pagination } from "@mui/material";
 import { FC } from "react";
+import { PaginationContainer } from "./PaginationComponent.styled";
 
 interface PaginationProps {
   totalPages: number;
@@ -20,12 +21,14 @@ const PaginationComponent: FC<PaginationProps> = ({
   };
 
   return (
-    <Pagination
-      count={totalPages}
-      page={page}
-      onChange={handleChange}
-      color="primary"
-    />
+    <PaginationContainer>
+      <Pagination
+        count={totalPages}
+        page={page}
+        onChange={handleChange}
+        color="primary"
+      />
+    </PaginationContainer>
   );
 };
 

@@ -1,4 +1,4 @@
-const rootUrl = 'http://localhost:8080';
+const rootUrl = '';
 
 export const API_ROUTES = {
   LOGIN: `${rootUrl}/login`,
