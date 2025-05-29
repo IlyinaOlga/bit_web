@@ -166,7 +166,12 @@ const ConferencePage: FC = () => {
                       </ParticipantButton>
 
                       <ListenerButton variant="contained">
-                        Стать слушателем
+                        <Link
+                          href="https://forms.yandex.ru/u/681bbd39f47e736c4d8245ea/"
+                          target="_blank"
+                        >
+                          Стать слушателем
+                        </Link>
                       </ListenerButton>
                     </ButtonGroup>
                   </ConditionContainer>

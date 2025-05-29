@@ -85,6 +85,10 @@ export const ListenerButton = styled(ContainedButton)`
     background-color: ${palette.colors.surface};
     color: ${palette.colors.black_main};
   }
+  & a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 export const TextWrap = styled.div`
